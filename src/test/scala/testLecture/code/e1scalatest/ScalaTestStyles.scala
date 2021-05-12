@@ -15,7 +15,7 @@ class BasicTest extends FunSuite with Matchers {
 @RunWith(classOf[JUnitRunner])
 class BasicFlatSpec extends FlatSpec with Matchers {
   "An empty set" should "have size 0" in {
-    assert(Set.empty.size == 0)
+    assert(Set.empty.isEmpty)
   }
 
   it should "raise NoSuchElementException for head" in {
@@ -30,7 +30,7 @@ class BasicFunSpec extends FunSpec with Matchers {
   describe(" A Set ") {
     describe(" when empty ") {
       it(" should have size 0 ") {
-        assert(Set.empty.size == 0)
+        assert(Set.empty.isEmpty)
       }
       it("should raise NoSuchElementException for head") {
         assertThrows[NoSuchElementException] {

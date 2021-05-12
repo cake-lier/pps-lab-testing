@@ -1,5 +1,7 @@
 package testLab
 
+import scala.language.postfixOps
+
 case class Product(name: String)
 case class Price(value: Double)
 case class Item(product: Product, details: ItemDetails)
@@ -7,19 +9,28 @@ case class ItemDetails(qty: Int, price: Price)
 
 trait Cart {
   def add(item: Item)
+  def remove(product: Product, qty: Int)
   def content: Set[Item]
   def size: Int
   def totalCost: Double
 }
 
 class BasicCart(private var items: Map[Product, ItemDetails] = Map()) extends Cart {
-  def add(item: Item) = {
+  def add(item: Item): Unit = {
     items += (item.product -> items.get(item.product).map(i =>
       i.copy(qty = i.qty + item.details.qty,
       price = Price(i.price.value+item.details.price.value))).getOrElse(item.details))
   }
+  def remove(product: Product, qty: Int): Unit =
+    items.get(product)
+         .foreach(d => {
+           Math.max(0, d.qty - qty) match {
+             case n if n > 0 => items += (product -> ItemDetails(n, Price(d.price.value / d.qty * n)))
+             case _ => items -= product
+           }
+         })
   def content: Set[Item] = items.map { case (prod,details) => Item(prod,details) } toSet
-  def size = items.size
+  def size: Int = items.size
   def totalCost: Double = items.values.foldRight(0.0)(_.price.value+_)
 }
 
@@ -30,7 +41,7 @@ trait Catalog {
 }
 
 class BasicCatalog(map: Map[Product,Price]) extends Catalog {
-  def products = map
+  def products: Map[Product, Price] = map
   def priceFor(p: Product, qty: Int): Price = Price(map(p).value * qty)
 }
 
@@ -46,15 +57,13 @@ class BasicWarehouse extends Warehouse{
     val availability = products.getOrElse(p, 0)
     availability match {
       case 0 => (p, 0)
-      case _ if availability >= qty => {
+      case _ if availability >= qty =>
         val newAvailability = availability - qty
         products += p -> newAvailability
         (p, qty)
-      }
-      case _ if qty > availability => {
+      case _ if qty > availability =>
         products += p -> 0
         (p, availability)
-      }
     }
   }
 }

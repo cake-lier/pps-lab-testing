@@ -13,15 +13,15 @@ import testLecture.code.ProgramToCover
 @RunWith(classOf[JUnitRunner])
 class ConditionCoverageExample extends FunSuite {
   test("Cover all the conditions") {
-    ProgramToCover.methodToCover(false, true, false, true, true)
-    ProgramToCover.methodToCover(true, false, true, false, false)
+    ProgramToCover.methodToCover(c2 = true, c4 = true, c5 = true)
+    ProgramToCover.methodToCover(c1 = true, c3 = true)
   }
 }
 
 @RunWith(classOf[JUnitRunner])
 class DecisionCoverageExample extends FunSuite {
   test("Cover all the decision branches") {
-    ProgramToCover.methodToCover(true, true, false, false, true)
-    ProgramToCover.methodToCover(false, false, true, false, false)
+    ProgramToCover.methodToCover(c1 = true, c2 = true, c5 = true)
+    ProgramToCover.methodToCover(c3 = true)
   }
 }

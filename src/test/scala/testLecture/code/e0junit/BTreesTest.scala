@@ -1,6 +1,7 @@
 package testLecture.code.e0junit
 
 import u02.BTrees.Tree._
+import u02.BTreesApp
 
 // JUnit 4
 // import org.junit.Test
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 
 class BTreesTest {
-  val tree = Branch(Branch(Leaf(1),Leaf(2)),Leaf(1))
+  val tree: Branch[Int] = Branch(Branch(Leaf(1),Leaf(2)),Leaf(1))
 
   @Test def testCount(){
     assertEquals(2, count(tree,1))
@@ -26,5 +27,9 @@ class BTreesTest {
   @Test def testFind(){
     assertTrue(find(tree,2))
     assertFalse(find(tree,4))
+  }
+
+  @Test def testApp() {
+    BTreesApp.main(Array())
   }
 }

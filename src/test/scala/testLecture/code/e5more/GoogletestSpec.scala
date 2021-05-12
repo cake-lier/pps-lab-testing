@@ -1,18 +1,12 @@
 package testLecture.code.e5more
 
-import org.junit.runner.RunWith
-import org.scalatest.concurrent.Eventually._
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.selenium._
-import org.scalatest.{FlatSpec, Matchers}
-
-import scala.concurrent.duration._
-
+import scala.language.postfixOps
+/*
 @RunWith(classOf[JUnitRunner])
 class GoogletestSpec extends FlatSpec with Matchers with HtmlUnit {
 
   "Google search" should "work" in {
-    go to "http://www.google.com"
+    go to "https://www.google.com"
     pageTitle should be ("Google")
     executeScript("return document.title") shouldEqual pageTitle
 
@@ -24,4 +18,4 @@ class GoogletestSpec extends FlatSpec with Matchers with HtmlUnit {
       pageTitle should startWith ("selenium - ")
     }
   }
-}
+}*/
